@@ -10,7 +10,6 @@
 		4B68127D2964526200AD193D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B68127C2964526200AD193D /* AppDelegate.swift */; };
 		4B68127F2964526200AD193D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B68127E2964526200AD193D /* SceneDelegate.swift */; };
 		4B6812812964526200AD193D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6812802964526200AD193D /* ViewController.swift */; };
-		4B6812842964526200AD193D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6812822964526200AD193D /* Main.storyboard */; };
 		4B6812862964526300AD193D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6812852964526300AD193D /* Assets.xcassets */; };
 		4B6812892964526300AD193D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6812872964526300AD193D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,7 +19,6 @@
 		4B68127C2964526200AD193D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B68127E2964526200AD193D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4B6812802964526200AD193D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4B6812832964526200AD193D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B6812852964526300AD193D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6812882964526300AD193D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B68128A2964526300AD193D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,38 @@
 		4B68127B2964526200AD193D /* PomodoroTimer */ = {
 			isa = PBXGroup;
 			children = (
-				4B68127C2964526200AD193D /* AppDelegate.swift */,
-				4B68127E2964526200AD193D /* SceneDelegate.swift */,
+				4B6812912964545400AD193D /* Resources */,
+				4B6812902964544000AD193D /* Sources */,
+			);
+			path = PomodoroTimer;
+			sourceTree = "<group>";
+		};
+		4B6812902964544000AD193D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4B6812922964560500AD193D /* App */,
 				4B6812802964526200AD193D /* ViewController.swift */,
-				4B6812822964526200AD193D /* Main.storyboard */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		4B6812912964545400AD193D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				4B6812852964526300AD193D /* Assets.xcassets */,
 				4B6812872964526300AD193D /* LaunchScreen.storyboard */,
 				4B68128A2964526300AD193D /* Info.plist */,
 			);
-			path = PomodoroTimer;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B6812922964560500AD193D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4B68127C2964526200AD193D /* AppDelegate.swift */,
+				4B68127E2964526200AD193D /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,6 +132,9 @@
 				Base,
 			);
 			mainGroup = 4B6812702964526200AD193D;
+			packageReferences = (
+				4B6812932964564400AD193D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 4B68127A2964526200AD193D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +151,6 @@
 			files = (
 				4B6812892964526300AD193D /* LaunchScreen.storyboard in Resources */,
 				4B6812862964526300AD193D /* Assets.xcassets in Resources */,
-				4B6812842964526200AD193D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +170,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4B6812822964526200AD193D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4B6812832964526200AD193D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4B6812872964526300AD193D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,7 +304,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NDLBTAU3LH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PomodoroTimer/Info.plist;
+				INFOPLIST_FILE = PomodoroTimer/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -317,7 +332,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NDLBTAU3LH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PomodoroTimer/Info.plist;
+				INFOPLIST_FILE = PomodoroTimer/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -358,6 +373,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B6812932964564400AD193D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 4B6812712964526200AD193D /* Project object */;
 }
