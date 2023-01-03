@@ -68,8 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				4B6812922964560500AD193D /* App */,
+				4B68129C2964617900AD193D /* Extensions */,
 				4B6812802964526200AD193D /* ViewController.swift */,
-				4B6812942964581C00AD193D /* UIView + Ext.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -91,6 +91,14 @@
 				4B68127E2964526200AD193D /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		4B68129C2964617900AD193D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4B6812942964581C00AD193D /* UIView + Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
