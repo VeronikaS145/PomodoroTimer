@@ -46,6 +46,12 @@ class ViewController: UIViewController {
     
     private var isStarted = false
     private var isWorkTime = true
+    private var isAnimationStarted = false
+    
+    private var progressLayer = CAShapeLayer()
+    private var circleLayer = CAShapeLayer()
+    private var startPoint = CGFloat(-Double.pi / 2)
+    private var endPoint = CGFloat(3 * Double.pi / 2)
     
     // set gradient
     var gradientLayer: CAGradientLayer!
@@ -60,6 +66,7 @@ class ViewController: UIViewController {
         view.addGradientLayer(topColor: firstColor, bottomColor: secondColor)
         setupHierarchy()
         setupLayouts()
+        createCircle()
     }
     
     // MARK: Setup
@@ -92,11 +99,13 @@ class ViewController: UIViewController {
     @objc private func pressedButton() {
         if !isStarted {
             startTimer()
+            setModeAnimation()
             startAndPauseButton.setImage(UIImage(named: "pause"), for: .normal)
             startAndPauseButton.configuration?.baseBackgroundColor = .red
             isStarted = true
         } else {
             timer.invalidate()
+            pauseAnimation(for: progressLayer)
             startAndPauseButton.setImage(UIImage(named: "play"), for: .normal)
             startAndPauseButton.configuration?.baseBackgroundColor = .green
             isStarted = false
@@ -126,10 +135,12 @@ class ViewController: UIViewController {
     // Режим работы
     private func changeToRelax() {
         guard workTime > 1 else {
+            stopAnimation()
             workTime = 25
             titleLabel.text = "Отдых"
             timeLabel.text = "00:10"
             startAndPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            progressLayer.strokeColor = UIColor.green.cgColor
             isStarted = false
             isWorkTime = false
             timer.invalidate()
@@ -143,10 +154,12 @@ class ViewController: UIViewController {
     // Режим отдыха
     private func changeToWork() {
         guard relaxTime > 1 else {
+            stopAnimation()
             relaxTime = 10
             titleLabel.text = "Работа"
             timeLabel.text = "00:25"
             startAndPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            progressLayer.strokeColor = UIColor.red.cgColor
             isStarted = false
             isWorkTime = true
             timer.invalidate()
@@ -155,5 +168,90 @@ class ViewController: UIViewController {
         
         relaxTime -= 1
         timeLabel.text = String(format: "%02i:%02i", Int(relaxTime) / 60 % 60, Int(relaxTime) % 60)
+    }
+    
+    // MARK: - Private functions for progress bar
+    
+    private func createCircle() {
+        let circle = UIBezierPath(arcCenter: CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.35), radius: 100, startAngle: startPoint, endAngle: endPoint, clockwise: true)
+        
+        // Set values for circle
+        circleLayer.path = circle.cgPath
+        circleLayer.fillColor = UIColor.clear.cgColor
+        circleLayer.lineCap = .round
+        circleLayer.lineWidth = 10
+        circleLayer.strokeEnd = 1
+        circleLayer.strokeColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.layer.addSublayer(circleLayer)
+        
+        // Set values for progress bar
+        progressLayer.path = circle.cgPath
+        progressLayer.fillColor = UIColor.clear.cgColor
+        progressLayer.lineCap = .round
+        progressLayer.lineWidth = 10
+        progressLayer.strokeEnd = 0
+        progressLayer.strokeColor = #colorLiteral(red: 1, green: 0.4149405136, blue: 0.3453579257, alpha: 1)
+        view.layer.addSublayer(progressLayer)
+        
+    }
+    
+    // Setting up animation modes
+    private func resetAnimation() {
+        progressLayer.speed = 1.0
+        progressLayer.timeOffset = 0.0
+        progressLayer.beginTime = 0.0
+        progressLayer.strokeEnd = 0.0
+        isAnimationStarted = false
+    }
+    
+    private func startAnimation(duration: TimeInterval) {
+        resetAnimation()
+        isAnimationStarted = true
+        let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        circularProgressAnimation.duration = duration
+        circularProgressAnimation.toValue = 1.0
+        circularProgressAnimation.fillMode = .forwards
+        circularProgressAnimation.isRemovedOnCompletion = false
+        progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
+    }
+    
+    private func pauseAnimation(for circle: CAShapeLayer) {
+        let pauseTime = circle.convertTime(CACurrentMediaTime(), from: nil)
+        circle.speed = 0.0
+        circle.timeOffset = pauseTime
+    }
+    
+    private func continueAnimation(for circle: CAShapeLayer) {
+        let pauseTime = circle.timeOffset
+        circle.speed = 1.0
+        circle.timeOffset = 0.0
+        circle.beginTime = 0.0
+        let timeSincePaused = circle.convertTime(CACurrentMediaTime(), from: nil) - pauseTime
+        circle.beginTime = timeSincePaused
+    }
+    
+    private func stopAnimation() {
+        progressLayer.speed = 1.0
+        progressLayer.timeOffset = 0.0
+        progressLayer.beginTime = 0.0
+        progressLayer.strokeEnd = 0.0
+        progressLayer.removeAllAnimations()
+        isAnimationStarted = false
+    }
+    
+    private func changeTime() {
+        if isWorkTime {
+            startAnimation(duration: workTime)
+        } else {
+            startAnimation(duration: relaxTime)
+        }
+    }
+    
+    private func setModeAnimation() {
+        if !isAnimationStarted{
+            changeTime()
+        } else {
+            continueAnimation(for: progressLayer)
+        }
     }
 }
