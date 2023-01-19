@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:25"
+        label.text = String(format: "%02i:%02i", Int(workTime) / 60 % 60, Int(workTime) % 60)
         label.textAlignment = .center
         label.textColor = .white
         label.font = .systemFont(ofSize: 45, weight: .bold)
@@ -136,9 +136,8 @@ class ViewController: UIViewController {
     private func changeToRelax() {
         guard workTime > 1 else {
             stopAnimation()
-            workTime = 25
             titleLabel.text = "Отдых"
-            timeLabel.text = "00:10"
+            timeLabel.text = String(format: "%02i:%02i", Int(relaxTime) / 60 % 60, Int(relaxTime) % 60)
             startAndPauseButton.setImage(UIImage(named: "play"), for: .normal)
             progressLayer.strokeColor = UIColor.green.cgColor
             isStarted = false
@@ -157,7 +156,7 @@ class ViewController: UIViewController {
             stopAnimation()
             relaxTime = 10
             titleLabel.text = "Работа"
-            timeLabel.text = "00:25"
+            timeLabel.text = String(format: "%02i:%02i", Int(workTime) / 60 % 60, Int(workTime) % 60)
             startAndPauseButton.setImage(UIImage(named: "play"), for: .normal)
             progressLayer.strokeColor = UIColor.red.cgColor
             isStarted = false
